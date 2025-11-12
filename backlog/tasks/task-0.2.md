@@ -1,7 +1,7 @@
 ---
 id: task-0.2
 title: "Write All Five Architecture Decision Records (ADRs)"
-status: To Do
+status: Done
 assignee: "@claude-code"
 reporter: "@mecattaf"
 created_date: 2025-01-15
