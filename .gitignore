@@ -1,0 +1,34 @@
+# Build artifacts
+build/
+builddir/
+*.o
+*.so
+*.so.*
+*.a
+*.dylib
+*.dll
+*.exe
+
+# Meson
+meson-logs/
+meson-private/
+compile_commands.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+*.log
+core
+vgcore.*
+
+# Don't ignore docs
+!docs/
