@@ -1,6 +1,7 @@
 libwlblur_sources = files(
   'src/blur_kawase.c',
   'src/blur_context.c',
+  'src/blur_params.c',
   'src/egl_helpers.c',
   'src/dmabuf.c',
   'src/shaders.c',
