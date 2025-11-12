@@ -1,0 +1,10 @@
+option('examples', type: 'feature', value: 'auto',
+  description: 'Build example programs')
+
+option('tests', type: 'feature', value: 'auto',
+  description: 'Build test suite')
+
+option('blur-algorithms', type: 'array',
+  choices: ['kawase', 'gaussian', 'box', 'bokeh'],
+  value: ['kawase'],
+  description: 'Blur algorithms to include')

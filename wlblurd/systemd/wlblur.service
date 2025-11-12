@@ -1,0 +1,19 @@
+[Unit]
+Description=wlblur - Wayland blur daemon
+Documentation=https://github.com/mecattaf/wlblur
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/wlblurd
+Restart=on-failure
+RestartSec=1
+
+# Security hardening
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+NoNewPrivileges=yes
+
+[Install]
+WantedBy=graphical-session.target
