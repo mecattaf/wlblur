@@ -126,7 +126,7 @@ EOF
 killall -USR1 wlblurd  # Changes apply instantly!
 ```
 
-See [wiki](wiki) for comprehensive documentation.
+📚 **[See Full Wiki Documentation →](wiki)**
 
 ---
 
@@ -204,10 +204,11 @@ The `ext_background_effect_v1` Wayland protocol **doesn't include blur parameter
 
 ### Documentation
 
-- **[Configuration Guide](docs/configuration-guide.md)** — Complete user guide with examples
-- **[Configuration Architecture](docs/architecture/04-configuration-system.md)** — Technical details
-- **[Example Config](docs/examples/wlblur-config.toml)** — Annotated example file
-- **[ADR-006](docs/decisions/006-daemon-configuration-with-presets.md)** — Architecture decision rationale
+- **[Configuration Guide](wiki/User-Guide/Configuration)** — Complete user guide
+- **[Example Config](wiki/User-Guide/Example-Config)** — Annotated example file
+- **[Presets](wiki/User-Guide/Presets)** — Preset system explained
+- **[Hot Reload](wiki/User-Guide/Hot-Reload)** — Live configuration changes
+- **[ADR-006](wiki/Architecture-Decisions/ADR-006-Daemon-Config)** — Architecture decision rationale
 
 ---
 
@@ -240,7 +241,7 @@ The `ext_background_effect_v1` Wayland protocol **doesn't include blur parameter
 
 - 🔄 **Next:** ScrollWM compositor integration (Milestone m-4)
 
-See [ROADMAP.md](ROADMAP.md) for complete project timeline and [wiki](wiki) for comprehensive documentation.
+See [Project Roadmap](wiki/Roadmap/Project-Roadmap) for complete timeline and **[Wiki](wiki/Home)** for comprehensive documentation.
 
 ---
 
@@ -304,46 +305,68 @@ See [docs/post-investigation/comprehensive-synthesis1.md](docs/post-investigatio
 
 ## Documentation
 
-**📚 [Full Documentation Wiki →](wiki)**
+**📚 [Complete Wiki Documentation →](wiki/Home)**
 
-### Quick Links
+wlblur has comprehensive documentation covering all aspects of the project:
 
-**For Users:**
-- 📘 [What is wlblur?](wiki/Getting-Started/What-is-wlblur.md) — 2-minute introduction
-- 🚀 [Quick Start Guide](wiki/Getting-Started/Quick-Start.md)  — Get started in 5 minutes
-- 🔧 [Configuration Guide](wiki/User-Guide/Configuration.md) — Complete configuration reference
-- 🔥 [Hot Reload Guide](wiki/User-Guide/Hot-Reload.md) — Instant configuration changes
+### For Users
+- **[Getting Started](wiki/Getting-Started/What-is-wlblur)** — Introduction and installation
+- **[Quick Start](wiki/Getting-Started/Quick-Start)** — 5-minute setup guide
+- **[Configuration Guide](wiki/User-Guide/Configuration)** — Complete parameter reference
+- **[Presets](wiki/User-Guide/Presets)** — Named blur configurations
+- **[Hot Reload](wiki/User-Guide/Hot-Reload)** — Live config updates (SIGUSR1)
+- **[FAQ](wiki/Getting-Started/FAQ)** — Common questions answered
+- **[Troubleshooting](wiki/User-Guide/Troubleshooting)** — Problem solving
 
-**For Compositor Developers:**
-- 👨‍💻 [Integration Overview](wiki/For-Compositor-Developers/Integration-Overview.md) — How to integrate wlblur
-- ✅ [Integration Checklist](wiki/For-Compositor-Developers/Integration-Checklist.md) — Step-by-step guide
-- 📚 [API Reference](wiki/For-Compositor-Developers/API-Reference.md) — IPC protocol documentation
-- 💡 [Example Integration](wiki/For-Compositor-Developers/Example-Integration.md) — Code walkthrough
+### For Compositor Developers
+- **[Integration Overview](wiki/For-Compositor-Developers/Integration-Overview)** — Architecture & workflow
+- **[Integration Checklist](wiki/For-Compositor-Developers/Integration-Checklist)** — Step-by-step implementation
+- **[Example Integration](wiki/For-Compositor-Developers/Example-Integration)** — Complete code walkthrough (ScrollWM)
+- **[API Reference](wiki/For-Compositor-Developers/API-Reference)** — IPC protocol specification
+- **[Library API](wiki/For-Compositor-Developers/Library-API)** — libwlblur reference
+- **[Performance Considerations](wiki/For-Compositor-Developers/Performance-Considerations)** — Optimization tips
 
-**Architecture & Design:**
-- 🏗️ [System Overview](wiki/Architecture/System-Overview.md) — High-level architecture
-- 📖 [Architecture Decisions](wiki/Architecture-Decisions) — ADRs explaining key design choices
-- 🗺️ [Project Roadmap](wiki/Roadmap/Project-Roadmap.md) — Full roadmap m-0 through m-9
-- 📊 [Current Status](wiki/Roadmap/Current-Status.md) — Where we are now
+### Architecture & Design
+- **[System Overview](wiki/Architecture/System-Overview)** — High-level architecture
+- **[Architecture Decisions (ADRs)](wiki/Architecture-Decisions/Overview)** — Design rationale (6 ADRs)
+  - [ADR-001: External Daemon](wiki/Architecture-Decisions/ADR-001-External-Daemon)
+  - [ADR-002: DMA-BUF](wiki/Architecture-Decisions/ADR-002-DMA-BUF)
+  - [ADR-003: Kawase Algorithm](wiki/Architecture-Decisions/ADR-003-Kawase-Algorithm)
+  - [ADR-004: IPC Protocol](wiki/Architecture-Decisions/ADR-004-IPC-Protocol)
+  - [ADR-005: SceneFX Extraction](wiki/Architecture-Decisions/ADR-005-SceneFX-Extraction)
+  - [ADR-006: Daemon Configuration](wiki/Architecture-Decisions/ADR-006-Daemon-Config)
+- **[Technical Investigation](wiki/Technical-Investigation/Overview)** — Compositor research (Hyprland, SceneFX, Wayfire)
+- **[Milestones](wiki/Milestones/Overview)** — Project progress (m-0 through m-5)
 
-**Deep Dives:**
-- [Hyprland Investigation](docs/investigation/hyprland-investigation/) — Performance analysis
-- [SceneFX Investigation](docs/investigation/scenefx-investigation/) — Scene graph integration
-- [Wayfire Investigation](docs/investigation/wayfire-investigation/) — Algorithm variety
+### Roadmap & Vision
+- **[Project Roadmap](wiki/Roadmap/Project-Roadmap)** — Long-term vision
+- **[Current Status](wiki/Roadmap/Current-Status)** — Detailed progress report
+- **[Next Steps](wiki/Roadmap/Next-Steps)** — Upcoming work (m-4 focus)
+- **[Hyprland Parity](wiki/Roadmap/Hyprland-Parity-Plan)** — Feature comparison & goals
+- **[macOS Parity](wiki/Roadmap/macOS-Parity-Vision)** — Apple-level materials
+- **[Material System](wiki/Roadmap/Material-System-Design)** — Advanced effects
+
+### Development
+- **[Contributing](wiki/Development/Contributing)** — How to contribute
+- **[Building from Source](wiki/Development/Building-from-Source)** — Build instructions
+- **[Code Style](wiki/Development/Code-Style)** — Formatting guidelines
+- **[Testing](wiki/Development/Testing)** — Test procedures
+- **[Release Process](wiki/Development/Release-Process)** — Version management
 
 ---
 
 ## Contributing
 
-Contributions are welcome! This project is in early planning stages.
+Contributions are welcome! The core implementation is complete (m-0 through m-3) and ready for compositor integration.
 
 **Areas where help is needed:**
-- Core daemon implementation (GLES3 rendering, IPC server)
-- Compositor integration libraries (wlroots, Smithay)
-- Performance benchmarking tools
-- Documentation and examples
+- Compositor integrations (ScrollWM, niri, Sway, River)
+- Performance optimizations and benchmarking
+- Additional blur algorithms (Gaussian, Box, Bokeh)
+- Documentation improvements
+- Testing on different hardware
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) *(coming soon)* for guidelines.
+**See [Contributing Guide](wiki/Development/Contributing)** for detailed guidelines.
 
 ---
 

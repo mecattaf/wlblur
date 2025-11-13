@@ -1,0 +1,222 @@
+# Example Configuration
+
+Full annotated configuration file showing all available options:
+
+```toml
+# wlblur Configuration File
+# Location: ~/.config/wlblur/config.toml
+#
+# This is an example configuration file showing all available options.
+# Uncomment and modify as needed.
+
+# ============================================================================
+# Daemon Settings
+# ============================================================================
+
+[daemon]
+# Unix socket path for IPC communication
+# Default: /run/user/$UID/wlblur.sock
+socket_path = "/run/user/1000/wlblur.sock"
+
+# Log level: debug, info, warn, error
+# Default: info
+log_level = "info"
+
+# Maximum blur nodes per client (resource limit)
+# Default: 100
+max_nodes_per_client = 100
+
+# ============================================================================
+# Default Blur Parameters
+# ============================================================================
+# These defaults are used when:
+# 1. No preset is specified
+# 2. A preset is not found
+# 3. A compositor provides no parameters
+
+[defaults]
+# Blur algorithm: kawase (only option in v1.0)
+# Future: gaussian, box, bokeh will be added in v2.0
+algorithm = "kawase"
+
+# Number of blur passes (1-8)
+# More passes = smoother blur, but slower
+# Default: 3
+num_passes = 3
+
+# Blur radius (1.0-20.0)
+# Higher values = stronger blur
+# Default: 5.0
+radius = 5.0
+
+# Brightness adjustment (0.0-2.0)
+# 1.0 = no change, <1.0 = darker, >1.0 = brighter
+# Default: 1.0
+brightness = 1.0
+
+# Contrast adjustment (0.0-2.0)
+# 1.0 = no change, <1.0 = lower contrast, >1.0 = higher contrast
+# Default: 1.0
+contrast = 1.0
+
+# Saturation adjustment (0.0-2.0)
+# 0.0 = grayscale, 1.0 = no change, >1.0 = more saturated
+# Default: 1.1
+saturation = 1.1
+
+# Noise overlay strength (0.0-1.0)
+# Adds subtle noise to reduce banding artifacts
+# Default: 0.02
+noise = 0.02
+
+# Vibrancy (0.0-2.0)
+# HSL saturation boost (Hyprland-style)
+# 0.0 = no vibrancy, higher = more saturated colors
+# Default: 0.0
+vibrancy = 0.0
+
+# ============================================================================
+# Standard Presets
+# ============================================================================
+# Standard presets provided by wlblur for common use cases.
+# Compositors typically map surface types to these preset names.
+
+[presets.window]
+# Regular application windows
+# Moderate blur for good balance of aesthetics and performance
+algorithm = "kawase"
+num_passes = 3
+radius = 8.0
+saturation = 1.15
+brightness = 1.0
+contrast = 1.0
+noise = 0.02
+vibrancy = 0.0
+
+[presets.panel]
+# Desktop panels (waybar, quickshell, etc.)
+# Lighter blur to keep text readable
+algorithm = "kawase"
+num_passes = 2
+radius = 4.0
+brightness = 1.05
+saturation = 1.1
+noise = 0.01
+vibrancy = 0.0
+
+[presets.hud]
+# Overlay/HUD elements (rofi, launchers, notifications)
+# Stronger blur for prominent popups
+algorithm = "kawase"
+num_passes = 4
+radius = 12.0
+saturation = 1.2
+brightness = 1.0
+contrast = 1.0
+noise = 0.02
+vibrancy = 0.2
+
+[presets.tooltip]
+# Tooltips and small popups
+# Minimal blur to keep tooltips subtle
+algorithm = "kawase"
+num_passes = 1
+radius = 2.0
+saturation = 1.0
+brightness = 1.0
+contrast = 1.0
+noise = 0.0
+vibrancy = 0.0
+
+# ============================================================================
+# Custom User Presets
+# ============================================================================
+# You can define your own custom presets below.
+# Use descriptive names and reference them in your compositor config.
+
+# Example: Custom panel with more blur
+[presets.panel_strong]
+algorithm = "kawase"
+num_passes = 3
+radius = 6.0
+brightness = 1.08
+saturation = 1.15
+noise = 0.015
+vibrancy = 0.05
+
+# Example: Subtle window blur
+[presets.window_subtle]
+algorithm = "kawase"
+num_passes = 2
+radius = 5.0
+saturation = 1.08
+brightness = 1.0
+contrast = 1.0
+noise = 0.01
+vibrancy = 0.0
+
+# Example: Artistic blur with vibrancy
+[presets.artistic]
+algorithm = "kawase"
+num_passes = 5
+radius = 15.0
+saturation = 1.3
+brightness = 1.05
+contrast = 1.1
+noise = 0.03
+vibrancy = 0.3
+
+# ============================================================================
+# Future Features (v2.0+)
+# ============================================================================
+# The following features are planned but not yet implemented.
+# They are documented here for reference.
+
+# [presets.window_gaussian]
+# # Gaussian blur (higher quality, slower)
+# algorithm = "gaussian"
+# radius = 8.0
+# gaussian_sigma = 10.0
+# gaussian_kernel_size = 21
+# saturation = 1.15
+
+# [presets.panel_fast]
+# # Box blur (fastest, lower quality)
+# algorithm = "box"
+# radius = 4.0
+# box_iterations = 2
+# brightness = 1.05
+
+# [presets.artistic_bokeh]
+# # Bokeh blur (artistic depth-of-field effect)
+# algorithm = "bokeh"
+# radius = 12.0
+# bokeh_rotation = 45.0
+# bokeh_sides = 6          # Hexagonal bokeh
+# bokeh_roundness = 0.5
+# saturation = 1.3
+# vibrancy = 0.2
+
+# ============================================================================
+# Tips & Best Practices
+# ============================================================================
+#
+# 1. Start with standard presets and only customize if needed
+# 2. Higher radius values impact performance - test on your hardware
+# 3. Use hot reload to experiment: killall -USR1 wlblurd
+# 4. Keep num_passes between 2-4 for best performance/quality balance
+# 5. Subtle saturation (1.1-1.2) usually looks better than extreme values
+# 6. Add small noise (0.01-0.03) to reduce banding on gradients
+# 7. Vibrancy >0.2 can look oversaturated - use sparingly
+#
+# For more information, see:
+# - Documentation: https://github.com/[project]/docs/configuration-guide.md
+# - Architecture: docs/architecture/04-configuration-system.md
+# - ADR-006: docs/decisions/006-daemon-configuration-with-presets.md
+```
+
+## Usage
+
+Copy this to `~/.config/wlblur/config.toml` and customize as needed.
+
+See: [Configuration Guide](Configuration) for detailed parameter reference
