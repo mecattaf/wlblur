@@ -3,7 +3,7 @@
 **Compositor-agnostic blur daemon for Wayland — because your compositor shouldn't maintain blur code.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Status: Planning](https://img.shields.io/badge/Status-Planning-yellow.svg)](#project-status)
+[![Status: Implementation](https://img.shields.io/badge/Status-Implementation-orange.svg)](#project-status)
 
 ---
 
@@ -100,9 +100,9 @@
 
 ## Quick Start
 
-> **⚠️ Project Status:** Currently in planning/investigation phase. Implementation has not started yet.
+> **⚠️ Project Status:** Core implementation complete (milestones m-0 through m-2). Awaiting build verification and compositor integration (m-3).
 
-Once implemented, usage will be:
+Once integrated, usage will be:
 
 ```bash
 # Start the blur daemon
@@ -121,15 +121,30 @@ See [INSTALL.md](docs/INSTALL.md) *(coming soon)* for compositor-specific integr
 
 ## Project Status
 
-**Current Phase:** Investigation & Planning (Milestone m-0)
+**Current Phase:** Core Implementation Complete (Milestone m-2 ✅)
 
-- ✅ Investigation complete: Analyzed Hyprland, Wayfire, and SceneFX blur implementations
-- ✅ Architecture validated: External daemon approach via DMA-BUF + IPC
-- ✅ Performance validated: ~1.4ms total latency (1.2ms blur + 0.2ms IPC)
-- 🔄 **Currently:** Writing comprehensive documentation and roadmap
-- ⏳ **Next:** Core daemon implementation (Milestone m-1)
+- ✅ **Milestone m-0** (Documentation & Setup): Complete
+  - 5 Architecture Decision Records (ADRs)
+  - Complete architecture documentation
+  - Repository structure and build system (Meson)
+  - IPC protocol specification
 
-See [backlog/tasks/](backlog/tasks/) for detailed task breakdown.
+- ✅ **Milestone m-1** (libwlblur Core): Complete
+  - Shader extraction from SceneFX, Hyprland, Wayfire
+  - Unified parameter schema with compositor presets
+  - EGL context and DMA-BUF infrastructure
+  - Dual Kawase blur algorithm implementation
+  - Complete public API (~2,448 lines)
+
+- ✅ **Milestone m-2** (wlblurd Daemon): Complete
+  - Unix socket server with epoll event loop
+  - IPC protocol handler (CREATE_NODE, RENDER_BLUR, DESTROY_NODE)
+  - Blur node registry with resource management
+  - Full daemon implementation (~800 lines)
+
+- ⏳ **Next:** Compositor integration (Milestone m-3)
+
+See [milestone2-report.md](milestone2-report.md) for detailed completion report and [backlog/tasks/](backlog/tasks/) for upcoming work.
 
 ---
 
@@ -233,7 +248,7 @@ MIT License — see [LICENSE](LICENSE) for details.
 - **Wayfire** — Algorithm variety and clean plugin abstraction
 - **SceneFX** — Scene graph integration patterns and damage tracking
 - **wlroots** — Foundation for Wayland compositor ecosystem
-- **scroll maintainer** — For validating the need for external daemon approach
+- **[`dawsers`](https://github.com/dawsers)** (scroll maintainer) — For validating the need for external daemon approach
 
 ---
 
