@@ -36,6 +36,29 @@ install_headers(
   subdir: 'wlblur',
 )
 
+# Verify all required shaders exist at build time
+fs = import('fs')
+required_shaders = [
+  'kawase_downsample.frag.glsl',
+  'kawase_upsample.frag.glsl',
+  'blur_finish.frag.glsl',
+  'vibrancy.frag.glsl',
+  'common.glsl'
+]
+
+foreach shader : required_shaders
+  shader_path = 'shaders' / shader
+  if not fs.exists(shader_path)
+    error('Missing required shader file: ' + shader_path)
+  endif
+endforeach
+
+# Install shaders to system
+install_subdir('shaders',
+  install_dir: get_option('datadir') / 'wlblur',
+  exclude_files: ['README.md']
+)
+
 # Declare dependency for internal use
 libwlblur_dep = declare_dependency(
   link_with: libwlblur,
