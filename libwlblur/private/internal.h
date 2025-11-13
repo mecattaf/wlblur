@@ -11,8 +11,45 @@
 
 #include "wlblur/wlblur.h"
 #include "wlblur/blur_params.h"
+#include <EGL/egl.h>
+#include <EGL/eglext.h>
 #include <GLES3/gl3.h>
+#include <GLES2/gl2ext.h>
 #include <stdbool.h>
+
+/**
+ * EGL context for offscreen rendering
+ */
+struct wlblur_egl_context {
+	EGLDisplay display;
+	EGLContext context;
+	EGLConfig config;
+	bool has_dmabuf_import;
+	bool has_dmabuf_export;
+	bool has_surfaceless;
+
+	/* Extension function pointers */
+	PFNEGLCREATEIMAGEKHRPROC eglCreateImageKHR;
+	PFNEGLDESTROYIMAGEKHRPROC eglDestroyImageKHR;
+	PFNEGLEXPORTDMABUFIMAGEMESAPROC eglExportDMABUFImageMESA;
+	PFNEGLEXPORTDMABUFIMAGEQUERYMESAPROC eglExportDMABUFImageQueryMESA;
+	PFNGLEGLIMAGETARGETTEXTURE2DOESPROC glEGLImageTargetTexture2DOES;
+};
+
+/**
+ * Create EGL display and context for offscreen rendering
+ */
+struct wlblur_egl_context* wlblur_egl_create(void);
+
+/**
+ * Destroy EGL context and clean up resources
+ */
+void wlblur_egl_destroy(struct wlblur_egl_context *ctx);
+
+/**
+ * Make EGL context current for the calling thread
+ */
+bool wlblur_egl_make_current(struct wlblur_egl_context *ctx);
 
 /**
  * Shader program management
