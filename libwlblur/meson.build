@@ -22,6 +22,7 @@ libwlblur = library(
   libwlblur_sources,
   dependencies: libwlblur_deps,
   include_directories: libwlblur_includes,
+  link_args: ['-lm'],
   version: meson.project_version(),
   install: true,
 )

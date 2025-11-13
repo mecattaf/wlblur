@@ -2,7 +2,7 @@
 if get_option('examples').enabled()
   blur_png = executable('blur-png',
     'blur-png.c',
-    dependencies: [libwlblur_dep],
+    dependencies: [libwlblur_dep, glesv2_dep],
   )
 
   ipc_example = executable('ipc-client-example',

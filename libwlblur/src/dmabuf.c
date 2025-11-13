@@ -165,6 +165,8 @@ GLuint wlblur_dmabuf_import(
 bool wlblur_dmabuf_export(
 	struct wlblur_egl_context *ctx,
 	GLuint texture,
+	int width,
+	int height,
 	struct wlblur_dmabuf_attribs *attribs
 ) {
 	if (!ctx || !texture || !attribs) {
@@ -179,6 +181,10 @@ bool wlblur_dmabuf_export(
 
 	/* Clear output structure */
 	memset(attribs, 0, sizeof(*attribs));
+
+	/* Set dimensions */
+	attribs->width = width;
+	attribs->height = height;
 
 	/* Create EGLImage from GL texture */
 	EGLImageKHR image = ctx->eglCreateImageKHR(
@@ -240,11 +246,6 @@ bool wlblur_dmabuf_export(
 		attribs->planes[i].stride = strides[i];
 		attribs->planes[i].offset = offsets[i];
 	}
-
-	/* Get texture dimensions */
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &attribs->width);
-	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &attribs->height);
 
 	/* Check for GL errors */
 	GLenum gl_error = glGetError();
