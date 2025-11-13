@@ -76,12 +76,16 @@ GLuint wlblur_dmabuf_import(
  *
  * @param ctx EGL context (must be current)
  * @param texture GL texture to export
+ * @param width Texture width
+ * @param height Texture height
  * @param attribs Output DMA-BUF attributes (caller owns FDs)
  * @return true on success, false on failure
  */
 bool wlblur_dmabuf_export(
 	struct wlblur_egl_context *ctx,
 	GLuint texture,
+	int width,
+	int height,
 	struct wlblur_dmabuf_attribs *attribs
 );
 
