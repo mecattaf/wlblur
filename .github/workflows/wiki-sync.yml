@@ -24,3 +24,6 @@ jobs:
         uses: Andrew-Chen-Wang/github-wiki-action@v3
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_NAME: github-actions
+          GH_MAIL: github-actions@github.com
+          WIKI_DIR: wiki
