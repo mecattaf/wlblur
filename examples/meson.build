@@ -8,4 +8,9 @@ if get_option('examples').enabled()
   ipc_example = executable('ipc-client-example',
     'ipc-client-example.c',
   )
+
+  test_dmabuf = executable('test-dmabuf',
+    'test-dmabuf.c',
+    dependencies: [libwlblur_dep],
+  )
 endif
