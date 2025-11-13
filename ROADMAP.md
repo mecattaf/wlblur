@@ -12,10 +12,10 @@
 
 | Phase | Milestone | Timeline | Status | Goal |
 |-------|-----------|----------|--------|------|
-| **Foundation** | m-0 | Week 1 | 🔄 In Progress | Project setup, documentation |
-| **Algorithm** | m-1 | Week 2 | 📋 Planned | Shader extraction |
-| **Core Library** | m-2 | Weeks 3-5 | 📋 Planned | libwlblur implementation |
-| **IPC Daemon** | m-3 | Weeks 6-8 | 📋 Planned | wlblurd daemon |
+| **Foundation** | m-0 | Week 1 | ✅ Complete | Project setup, documentation |
+| **Algorithm** | m-1 | Week 2 | ✅ Complete | Shader extraction |
+| **Core + Daemon** | m-2 | Weeks 3-5 | ✅ Complete | libwlblur + wlblurd |
+| **Configuration** | m-3 | Weeks 6-8 | 📋 Next | Configuration system & presets |
 | **First Integration** | m-4 | Weeks 9-10 | 📋 Planned | ScrollWM integration |
 | **Production** | m-5 | Weeks 11-12 | 📋 Planned | v1.0.0 release |
 | **Tint & Vibrancy** | m-6 | Weeks 13-15 | 📋 Planned | Big Sur parity |
@@ -30,19 +30,22 @@
 **Where We Are:**
 - ✅ Investigation complete (Hyprland, Wayfire, SceneFX analyzed)
 - ✅ Architecture decided (external daemon approach)
-- ✅ Technical feasibility validated (DMA-BUF zero-copy proven)
-- 🔄 Documentation in progress (README, ROADMAP, ADRs)
-- 📋 Implementation not yet started
+- ✅ Milestone 0-2 complete (docs, libwlblur, wlblurd)
+- ✅ ADR-006 complete (configuration architecture decision)
+- 📋 Milestone 3 next (configuration system implementation)
 
 **What's Working:**
-- Repository structure established
-- Investigation docs comprehensive
-- Clear architectural vision
+- libwlblur: Core blur library with Kawase algorithm (~1,800 lines)
+- wlblurd: IPC daemon with Unix socket protocol (~800 lines)
+- Shaders: 5 GLSL shaders extracted (~650 lines)
+- Documentation: Comprehensive ADRs and architecture docs
 
 **What's Next:**
-- Complete Milestone 0 documentation
-- Set up build system (Meson)
-- Begin shader extraction (Milestone 1)
+- **Milestone 3**: Configuration system with preset support
+  - TOML config parsing
+  - Preset management
+  - Hot reload (SIGUSR1)
+  - IPC protocol extension
 
 ---
 
@@ -237,110 +240,138 @@ int output_fd = wlblur_export_dmabuf(ctx, output);
 
 ---
 
-## Milestone 3: wlblurd IPC Daemon
+## Milestone 2: libwlblur Core Implementation + wlblurd Daemon
+
+**Note:** Milestone 2 was completed as a combined effort that included both the core library (originally planned as separate milestones m-2 and m-3). See `docs/post-milestone2-discussion/milestone2-report.md` for details.
+
+**Timeline:** Weeks 3-8 (completed)
+**Status:** ✅ Complete
+**Deliverables:** libwlblur library (~1,800 lines), wlblurd daemon (~800 lines), shaders (~650 lines)
+
+---
+
+## Milestone 3: Configuration System Implementation
 
 **Timeline:** Weeks 6-8 (3 weeks)
-**Status:** 📋 Planned
-**Depends on:** m-2
+**Status:** 📋 Next
+**Depends on:** m-2 (libwlblur + wlblurd complete)
 
 ### Objectives
 
-Build the IPC daemon that wraps libwlblur and provides blur-as-a-service to compositors via Unix socket.
+Implement daemon-side configuration system with preset support. This milestone was added after m-2 completion to address the `ext_background_effect_v1` protocol constraint (protocol doesn't include blur parameters).
+
+**See ADR-006 for complete rationale:** `docs/decisions/006-daemon-configuration-with-presets.md`
 
 ### Deliverables
 
-- [ ] IPC protocol definition (`protocol.h`)
-- [ ] Unix socket server (SOCK_SEQPACKET)
-- [ ] FD passing implementation (SCM_RIGHTS for DMA-BUF)
-- [ ] Blur node registry (virtual scene graph)
-- [ ] Client state management (per-compositor tracking)
-- [ ] Buffer lifecycle management
-- [ ] Configuration system (JSON or INI)
-- [ ] systemd unit file
-- [ ] Logging and debugging infrastructure
+- [ ] **Configuration file parsing** (`wlblurd/src/config.c`, ~300 lines)
+  - TOML format support (using tomlc99 library)
+  - Parse `~/.config/wlblur/config.toml`
+  - Daemon settings, defaults, presets
+  - Graceful handling of missing config
+
+- [ ] **Preset management** (`wlblurd/src/presets.c`, ~200 lines)
+  - Standard presets: window, panel, hud, tooltip
+  - User-defined custom presets
+  - Hash table for O(1) lookup
+  - Fallback hierarchy (preset → params → defaults)
+
+- [ ] **Hot reload** (`wlblurd/src/reload.c`, ~100 lines)
+  - SIGUSR1 signal handler
+  - Safe config reload (validate before applying)
+  - Atomic config swap
+
+- [ ] **IPC protocol extension** (`wlblurd/include/protocol.h`, ~50 lines)
+  - Add `preset_name` field to requests
+  - Add `use_preset` flag
+  - Maintain backward compatibility
+
+- [ ] **Algorithm enum** (`libwlblur/include/wlblur/blur_params.h`, +30 lines)
+  - Add `enum wlblur_algorithm`
+  - Document kawase as only m-3 option
+  - Prepare for gaussian/box/bokeh in m-9
+
+- [ ] **Documentation**
+  - Configuration architecture doc
+  - User configuration guide
+  - Example config file
+  - ADR-006 (architecture decision)
 
 ### Success Metrics
 
-- **IPC latency:** <0.2ms round-trip for blur request
-- **Stability:** 24-hour stress test without crashes
-- **Multi-client:** Handle 3+ compositors simultaneously
-- **Resource cleanup:** No FD leaks after 10,000 requests
-- **Error handling:** Graceful degradation on invalid requests
+- **Config parsing:** <5ms daemon startup overhead
+- **Preset lookup:** <0.001ms per request (negligible)
+- **Hot reload:** <10ms reload time (imperceptible to user)
+- **Validation:** Invalid configs rejected without crashing daemon
+- **Fallback:** Works without config file (hardcoded defaults)
+- **Standard presets:** window, panel, hud, tooltip resolve correctly
 
-### IPC Protocol Design
+### Why This Milestone Exists
 
+**Context:** After m-2 completion, analysis revealed that the `ext_background_effect_v1` Wayland protocol doesn't include blur parameters. Client applications (quickshell, waybar) just say "blur me" without specifying how.
+
+**Problem:** Compositor must decide blur parameters when forwarding to daemon. Three options:
+1. Compositor config (bloats compositor, breaks on wlblur upgrades)
+2. Daemon config with presets (minimal compositor code, future-proof)
+3. Hybrid (too complex)
+
+**Decision:** Daemon config with presets (option 2). This milestone implements that decision.
+
+**Impact on compositor integration:** Compositors will map surface types to preset names:
 ```c
-// Message header (32 bytes)
-struct wlblur_ipc_header {
-    uint32_t magic;        // 0x424C5552 ("BLUR")
-    uint32_t version;      // Protocol version (1)
-    uint32_t client_id;    // Client identifier
-    uint32_t sequence;     // Request sequence number
-    uint32_t opcode;       // Operation code
-    uint32_t payload_size; // Payload size
-    uint64_t timestamp;    // Request timestamp (ns)
-};
-
-// Operation codes
-enum wlblur_opcode {
-    WLBLUR_OP_CREATE_NODE = 1,    // Create blur node
-    WLBLUR_OP_DESTROY_NODE = 2,   // Destroy blur node
-    WLBLUR_OP_IMPORT_DMABUF = 3,  // Import DMA-BUF
-    WLBLUR_OP_RELEASE_BUFFER = 4, // Release buffer
-    WLBLUR_OP_RENDER = 5,         // Render blur
-    WLBLUR_OP_CONFIGURE = 6,      // Update parameters
-};
-
-// Render request
-struct wlblur_render_request {
-    struct wlblur_ipc_header header;
-    uint32_t blur_id;           // Blur node ID
-    uint32_t input_buffer_id;   // Input buffer ID
-    struct wlblur_params params; // Blur parameters
-    uint32_t num_damage_rects;  // Damage region count
-    struct {
-        int32_t x, y;
-        int32_t width, height;
-    } damage[32];               // Damage regions
-};
-
-// Render response (+ DMA-BUF FD via SCM_RIGHTS)
-struct wlblur_render_response {
-    uint32_t output_buffer_id;  // Output buffer ID
-    uint32_t width, height;     // Dimensions
-    uint32_t format;            // DRM format
-};
+// Compositor integration (minimal)
+const char* preset = is_panel(surface) ? "panel" : "window";
+struct wlblur_request req = { .preset_name = preset };
 ```
 
-### Daemon Architecture
+### Configuration Example
 
+```toml
+# ~/.config/wlblur/config.toml
+
+[defaults]
+algorithm = "kawase"
+num_passes = 3
+radius = 5.0
+saturation = 1.1
+
+[presets.window]
+radius = 8.0
+num_passes = 3
+
+[presets.panel]
+radius = 4.0
+num_passes = 2
+brightness = 1.05
 ```
-wlblurd process:
-├── Event loop (poll/epoll)
-├── Socket listener (/run/user/1000/wlblurd.sock)
-├── Per-client state
-│   ├── Client ID
-│   ├── Blur node registry
-│   └── Buffer registry
-├── libwlblur context (shared across clients)
-└── Configuration
+
+### Hot Reload Workflow
+
+```bash
+# User edits config
+vim ~/.config/wlblur/config.toml
+
+# Reload daemon (no compositor restart!)
+killall -USR1 wlblurd
+
+# Changes apply immediately to all compositors
 ```
 
 ### Risk Factors
 
-- **IPC overhead:** 0.2ms target may be challenging
-  - *Mitigation:* Binary protocol, zero-copy FD passing
-- **Daemon crashes:** Single daemon serves all compositors
-  - *Mitigation:* Compositors track state, can recreate nodes
-- **Synchronization:** GPU sync across processes
-  - *Mitigation:* Start synchronous (glFinish), add sync objects later
-- **Security:** Malicious compositor could DoS daemon
-  - *Mitigation:* Resource limits, client quotas
+- **TOML dependency:** Adds tomlc99 library dependency
+  - *Mitigation:* Small, well-tested library
+- **Config complexity:** Users might find TOML confusing
+  - *Mitigation:* Comprehensive docs, example config
+- **Hot reload safety:** Invalid config could crash daemon
+  - *Mitigation:* Validate before applying, keep old config on error
 
 ### Resources
 
-- IPC protocol design: `docs/post-investigation/comprehensive-synthesis1.md` (Part 2.2)
-- Scene graph pattern: SceneFX `types/scene/wlr_scene.c`
+- ADR-006: `docs/decisions/006-daemon-configuration-with-presets.md`
+- Config architecture: `docs/architecture/04-configuration-system.md`
+- User guide: `docs/configuration-guide.md`
+- Example config: `docs/examples/wlblur-config.toml`
 
 ---
 
@@ -348,11 +379,11 @@ wlblurd process:
 
 **Timeline:** Weeks 9-10 (2 weeks)
 **Status:** 📋 Planned
-**Depends on:** m-3
+**Depends on:** m-3 (Configuration System Implementation)
 
 ### Objectives
 
-First real-world compositor integration. Prove the external daemon approach with minimal changes to ScrollWM.
+First real-world compositor integration. Prove the external daemon approach with minimal changes to ScrollWM. Validate preset-based configuration architecture in practice.
 
 ### Deliverables
 
