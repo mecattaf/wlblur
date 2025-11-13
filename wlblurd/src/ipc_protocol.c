@@ -57,11 +57,14 @@ static struct wlblur_response handle_create_node(
 ) {
     struct wlblur_response resp = {0};
 
+    // Copy params to properly aligned local variable (req is packed)
+    struct wlblur_blur_params params = req->params;
+
     // Allocate node
     uint32_t node_id = blur_node_create(client->client_id,
                                         req->width,
                                         req->height,
-                                        &req->params);
+                                        &params);
 
     if (node_id == 0) {
         resp.status = WLBLUR_STATUS_OUT_OF_MEMORY;
@@ -116,11 +119,14 @@ static struct wlblur_response handle_render_blur(
         },
     };
 
+    // Copy params to properly aligned local variable (req is packed)
+    struct wlblur_blur_params params = req->params;
+
     // Apply blur
     struct wlblur_dmabuf_attribs output_attribs;
     if (!wlblur_apply_blur(g_blur_ctx,
                           &input_attribs,
-                          &req->params,
+                          &params,
                           &output_attribs)) {
         fprintf(stderr, "[wlblurd] Blur rendering failed: %s\n",
                 wlblur_error_string(wlblur_get_error()));

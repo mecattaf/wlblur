@@ -8,6 +8,7 @@
 
 #include "wlblur/dmabuf.h"
 #include "wlblur/wlblur.h"
+#include "private/internal.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
