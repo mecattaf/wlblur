@@ -51,10 +51,10 @@ This investigation informed our architectural decisions and validated the extern
 5. DMA-BUF enables zero-copy texture sharing
 
 **How this informed wlblur:**
-- Chose Dual Kawase algorithm ([ADR-003](../Architecture-Decisions/ADR-003-Kawase-Algorithm))
-- Designed external daemon ([ADR-001](../Architecture-Decisions/ADR-001-External-Daemon))
-- Used DMA-BUF for performance ([ADR-002](../Architecture-Decisions/ADR-002-DMA-BUF))
-- Extracted shaders from SceneFX ([ADR-005](../Architecture-Decisions/ADR-005-SceneFX-Extraction))
+- Chose Dual Kawase algorithm ([ADR-003](Architecture-Decisions-ADR-003-Kawase-Algorithm))
+- Designed external daemon ([ADR-001](Architecture-Decisions-ADR-001-External-Daemon))
+- Used DMA-BUF for performance ([ADR-002](Architecture-Decisions-ADR-002-DMA-BUF))
+- Extracted shaders from SceneFX ([ADR-005](Architecture-Decisions-ADR-005-SceneFX-Extraction))
 
 ## Investigation Timeline
 
@@ -87,6 +87,6 @@ For each compositor, we:
 
 ## See Also
 
-- [ADR Overview](../Architecture-Decisions/Overview) - How investigations influenced decisions
-- [SceneFX Extraction](../Architecture-Decisions/ADR-005-SceneFX-Extraction) - Code reuse strategy
-- [Background Context](../Background/Blur-in-Compositors) - Pre-investigation research
+- [ADR Overview](Architecture-Decisions-Overview) - How investigations influenced decisions
+- [SceneFX Extraction](Architecture-Decisions-ADR-005-SceneFX-Extraction) - Code reuse strategy
+- [Background Context](Background-Blur-in-Compositors) - Pre-investigation research

@@ -22,28 +22,28 @@ Welcome to the wlblur documentation! This wiki provides comprehensive informatio
 ## Quick Links
 
 ### For Users
-- 📘 [What is wlblur?](Getting-Started/What-is-wlblur.md) - 2-minute introduction
-- 🚀 [Quick Start](Getting-Started/Quick-Start.md) - Get started in 5 minutes
-- 🔧 [Configuration Guide](User-Guide/Configuration.md) - Full configuration reference
-- ❓ [FAQ](Getting-Started/FAQ.md) - Common questions answered
-- 🐛 [Troubleshooting](User-Guide/Troubleshooting.md) - Common issues and solutions
+- 📘 [What is wlblur?](Getting-Started-What-is-wlblur) - 2-minute introduction
+- 🚀 [Quick Start](Getting-Started-Quick-Start) - Get started in 5 minutes
+- 🔧 [Configuration Guide](User-Guide-Configuration) - Full configuration reference
+- ❓ [FAQ](Getting-Started-FAQ) - Common questions answered
+- 🐛 [Troubleshooting](User-Guide-Troubleshooting) - Common issues and solutions
 
 ### For Compositor Developers
-- 👨‍💻 [Integration Overview](For-Compositor-Developers/Integration-Overview.md) - High-level integration approach
-- ✅ [Integration Checklist](For-Compositor-Developers/Integration-Checklist.md) - Step-by-step guide
-- 📚 [API Reference](For-Compositor-Developers/API-Reference.md) - IPC protocol documentation
-- 💡 [Example Integration](For-Compositor-Developers/Example-Integration.md) - Code walkthrough
+- 👨‍💻 [Integration Overview](For-Compositor-Developers-Integration-Overview) - High-level integration approach
+- ✅ [Integration Checklist](For-Compositor-Developers-Integration-Checklist) - Step-by-step guide
+- 📚 [API Reference](For-Compositor-Developers-API-Reference) - IPC protocol documentation
+- 💡 [Example Integration](For-Compositor-Developers-Example-Integration) - Code walkthrough
 
 ### Architecture & Design
-- 🏗️ [System Overview](Architecture/System-Overview.md) - High-level architecture
-- 📖 [Architecture Decisions](Architecture-Decisions) - ADRs explaining key design choices
-- 🗺️ [Project Roadmap](Roadmap/Project-Roadmap.md) - Full roadmap m-0 through m-9
+- 🏗️ [System Overview](Architecture-System-Overview) - High-level architecture
+- 📖 [Architecture Decisions](Architecture-Decisions-Overview) - ADRs explaining key design choices
+- 🗺️ [Project Roadmap](Roadmap-Project-Roadmap) - Full roadmap m-0 through m-9
 
 ### For Contributors
-- 🤝 [Contributing Guide](Development/Contributing.md) - How to contribute
-- 🔨 [Building from Source](Development/Building-from-Source.md) - Developer build guide
-- 📋 [Code Style](Development/Code-Style.md) - Coding conventions
-- 🧪 [Testing](Development/Testing.md) - Test procedures
+- 🤝 [Contributing Guide](Development-Contributing) - How to contribute
+- 🔨 [Building from Source](Development-Building-from-Source) - Developer build guide
+- 📋 [Code Style](Development-Code-Style) - Coding conventions
+- 🧪 [Testing](Development-Testing) - Test procedures
 
 ---
 
@@ -69,7 +69,7 @@ Welcome to the wlblur documentation! This wiki provides comprehensive informatio
 - v1.0.0 public release
 - Multi-compositor expansion
 
-See [Current Status](Roadmap/Current-Status.md) for details.
+See [Current Status](Roadmap-Current-Status) for details.
 
 ---
 
@@ -87,7 +87,7 @@ Compositors like scroll's maintainer explicitly [don't want blur](https://github
 | Crash impact | Can crash compositor | Daemon restarts, compositor unaffected |
 | Multi-compositor | Single compositor only | Works everywhere |
 
-See [Why External Daemon?](Architecture-Decisions/ADR-001-External-Daemon.md) for complete rationale.
+See [Why External Daemon?](Architecture-Decisions-ADR-001-External-Daemon) for complete rationale.
 
 ---
 
@@ -119,7 +119,7 @@ brightness = 1.05
 - **Hot reload**: Edit config, send `SIGUSR1`, changes apply instantly
 - **Future-proof**: New features (tint, materials) work without compositor updates
 
-See [Configuration Guide](User-Guide/Configuration.md) for complete documentation.
+See [Configuration Guide](User-Guide-Configuration) for complete documentation.
 
 ---
 
@@ -152,7 +152,7 @@ See [Configuration Guide](User-Guide/Configuration.md) for complete documentatio
 └─────────────────────────────────────────┘
 ```
 
-See [System Overview](Architecture/System-Overview.md) for detailed architecture.
+See [System Overview](Architecture-System-Overview) for detailed architecture.
 
 ---
 
@@ -189,71 +189,71 @@ Standard presets (window, panel, hud, tooltip) + custom user presets.
 ### 📘 Getting Started
 Learn about wlblur and get set up quickly.
 
-- [What is wlblur?](Getting-Started/What-is-wlblur.md)
-- [Installation](Getting-Started/Installation.md)
-- [Quick Start](Getting-Started/Quick-Start.md)
-- [FAQ](Getting-Started/FAQ.md)
+- [What is wlblur?](Getting-Started-What-is-wlblur)
+- [Installation](Getting-Started-Installation)
+- [Quick Start](Getting-Started-Quick-Start)
+- [FAQ](Getting-Started-FAQ)
 
 ### 🔧 User Guide
 Configure and use wlblur on your system.
 
-- [Configuration](User-Guide/Configuration.md)
-- [Presets](User-Guide/Presets.md)
-- [Hot Reload](User-Guide/Hot-Reload.md)
-- [Troubleshooting](User-Guide/Troubleshooting.md)
+- [Configuration](User-Guide-Configuration)
+- [Presets](User-Guide-Presets)
+- [Hot Reload](User-Guide-Hot-Reload)
+- [Troubleshooting](User-Guide-Troubleshooting)
 
 ### 👨‍💻 For Compositor Developers
 Integrate wlblur into your compositor.
 
-- [Integration Overview](For-Compositor-Developers/Integration-Overview.md)
-- [Integration Checklist](For-Compositor-Developers/Integration-Checklist.md)
-- [API Reference](For-Compositor-Developers/API-Reference.md)
-- [Example Integration](For-Compositor-Developers/Example-Integration.md)
+- [Integration Overview](For-Compositor-Developers-Integration-Overview)
+- [Integration Checklist](For-Compositor-Developers-Integration-Checklist)
+- [API Reference](For-Compositor-Developers-API-Reference)
+- [Example Integration](For-Compositor-Developers-Example-Integration)
 
 ### 🏗️ Architecture
 Understand how wlblur works internally.
 
-- [System Overview](Architecture/System-Overview.md)
-- [libwlblur Internals](Architecture/libwlblur-Internals.md)
-- [Daemon Architecture](Architecture/Daemon-Architecture.md)
-- [IPC Protocol](Architecture/IPC-Protocol.md)
-- [Configuration System](Architecture/Configuration-System.md)
+- [System Overview](Architecture-System-Overview)
+- [libwlblur Internals](Architecture-libwlblur-Internals)
+- [Daemon Architecture](Architecture-Daemon-Architecture)
+- [IPC Protocol](Architecture-IPC-Protocol)
+- [Configuration System](Architecture-Configuration-System)
 
 ### 📖 Architecture Decisions
 Learn why key design decisions were made.
 
-- [ADR-001: External Daemon](Architecture-Decisions/ADR-001-External-Daemon.md)
-- [ADR-002: DMA-BUF](Architecture-Decisions/ADR-002-DMA-BUF.md)
-- [ADR-003: Kawase Algorithm](Architecture-Decisions/ADR-003-Kawase-Algorithm.md)
-- [ADR-004: IPC Protocol](Architecture-Decisions/ADR-004-IPC-Protocol.md)
-- [ADR-005: SceneFX Extraction](Architecture-Decisions/ADR-005-SceneFX-Extraction.md)
-- [ADR-006: Daemon Configuration](Architecture-Decisions/ADR-006-Daemon-Config.md)
+- [ADR-001: External Daemon](Architecture-Decisions-ADR-001-External-Daemon)
+- [ADR-002: DMA-BUF](Architecture-Decisions-ADR-002-DMA-BUF)
+- [ADR-003: Kawase Algorithm](Architecture-Decisions-ADR-003-Kawase-Algorithm)
+- [ADR-004: IPC Protocol](Architecture-Decisions-ADR-004-IPC-Protocol)
+- [ADR-005: SceneFX Extraction](Architecture-Decisions-ADR-005-SceneFX-Extraction)
+- [ADR-006: Daemon Configuration](Architecture-Decisions-ADR-006-Daemon-Config)
 
 ### 🗺️ Roadmap & Milestones
 See where wlblur is headed.
 
-- [Project Roadmap](Roadmap/Project-Roadmap.md)
-- [Current Status](Roadmap/Current-Status.md)
-- [Next Steps](Roadmap/Next-Steps.md)
-- [Future Vision](Roadmap/Future-Vision.md)
+- [Project Roadmap](Roadmap-Project-Roadmap)
+- [Current Status](Roadmap-Current-Status)
+- [Next Steps](Roadmap-Next-Steps)
+- [Future Vision](Roadmap-Future-Vision)
 
 ### 🏁 Milestones
 Detailed milestone documentation.
 
-- [m-0: Documentation](Milestones/m-0-Documentation.md)
-- [m-1: libwlblur](Milestones/m-1-libwlblur.md)
-- [m-2: Daemon](Milestones/m-2-Daemon.md)
-- [m-3: Configuration](Milestones/m-3-Configuration.md)
-- [m-4: ScrollWM Integration](Milestones/m-4-ScrollWM-Integration.md)
-- [Future Milestones](Milestones/Future-Milestones.md)
+- [m-0: Documentation](Milestones-m-0-Documentation)
+- [m-1: libwlblur](Milestones-m-1-libwlblur)
+- [m-2: Daemon](Milestones-m-2-Daemon)
+- [m-3: Configuration](Milestones-m-3-Configuration)
+- [m-4: ScrollWM Integration](Milestones-m-4-ScrollWM-Integration)
+- [Future Milestones](Milestones-Future-Milestones)
 
 ### 🤝 Development
 Contribute to wlblur.
 
-- [Contributing](Development/Contributing.md)
-- [Building from Source](Development/Building-from-Source.md)
-- [Code Style](Development/Code-Style.md)
-- [Testing](Development/Testing.md)
+- [Contributing](Development-Contributing)
+- [Building from Source](Development-Building-from-Source)
+- [Code Style](Development-Code-Style)
+- [Testing](Development-Testing)
 
 ---
 

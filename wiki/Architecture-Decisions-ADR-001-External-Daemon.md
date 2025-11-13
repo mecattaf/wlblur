@@ -254,12 +254,12 @@ This decision will be validated by:
 ## References
 
 - Investigation docs:
-  - [Blur Daemon Approach](../Architecture/Daemon-Approach-Rationale) - Detailed architectural justification
+  - [Blur Daemon Approach](Architecture-Daemon-Approach-Rationale) - Detailed architectural justification
   - [Why IPC Is Better](Why-IPC-Is-Better) - Tight vs loose coupling analysis
-  - [SceneFX Investigation Summary](../Technical-Investigation/SceneFX-Summary) - SceneFX blur implementation
-  - [Comparative Analysis](../Technical-Investigation/Comparative-Analysis) - Three-compositor comparison
+  - [SceneFX Investigation Summary](Technical-Investigation-SceneFX-Summary) - SceneFX blur implementation
+  - [Comparative Analysis](Technical-Investigation-Comparative-Analysis) - Three-compositor comparison
 
-- [scroll maintainer discussion](../Background/ScrollWM-Motivation)
+- [scroll maintainer discussion](Background-ScrollWM-Motivation)
 - Related: [ADR-002 (DMA-BUF choice)](ADR-002-DMA-BUF), [ADR-004 (IPC protocol design)](ADR-004-IPC-Protocol)
 
 ## Community Feedback

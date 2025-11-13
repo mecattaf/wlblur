@@ -176,5 +176,5 @@ wlblurd --log-level debug 2>&1 | tee wlblur-debug.log
 ## See Also
 
 - [Configuration Guide](Configuration)
-- [FAQ](../Getting-Started/FAQ)
-- [Performance Considerations](../For-Compositor-Developers/Performance-Considerations)
+- [FAQ](Getting-Started-FAQ)
+- [Performance Considerations](For-Compositor-Developers-Performance-Considerations)

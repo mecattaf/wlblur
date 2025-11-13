@@ -62,9 +62,9 @@ Establish project foundation with professional documentation and clear architect
 
 - [x] Repository structure
 - [x] Investigation documentation organized
-- [ ] **README.md** - Compelling 2-minute introduction ([task-0.1](backlog/tasks/task-0.1.md))
-- [ ] **ADRs** - Five architectural decision records ([task-0.2](backlog/tasks/task-0.2.md))
-- [ ] **ROADMAP.md** - Complete project roadmap ([task-0.3](backlog/tasks/task-0.3.md))
+- [ ] **README.md** - Compelling 2-minute introduction ([task-0.1](backlog/tasks/task-0.1))
+- [ ] **ADRs** - Five architectural decision records ([task-0.2](backlog/tasks/task-0.2))
+- [ ] **ROADMAP.md** - Complete project roadmap ([task-0.3](backlog/tasks/task-0.3))
 - [ ] Meson build skeleton
 - [ ] License file (MIT)
 

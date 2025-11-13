@@ -66,5 +66,5 @@ sudo meson install -C build
 ## Next Steps
 
 - [Quick Start Guide](Quick-Start) - Set up configuration
-- [Configuration](../User-Guide/Configuration) - Detailed config options
+- [Configuration](User-Guide-Configuration) - Detailed config options
 - [What is wlblur?](What-is-wlblur) - Learn more about the project

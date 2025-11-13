@@ -244,7 +244,7 @@ perf stat -e cycles,instructions ./your_compositor
 
 ## See Also
 
-- [ADR-002: DMA-BUF](../Architecture-Decisions/ADR-002-DMA-BUF) - Zero-copy architecture
-- [ADR-003: Kawase Algorithm](../Architecture-Decisions/ADR-003-Kawase-Algorithm) - Algorithm performance
+- [ADR-002: DMA-BUF](Architecture-Decisions-ADR-002-DMA-BUF) - Zero-copy architecture
+- [ADR-003: Kawase Algorithm](Architecture-Decisions-ADR-003-Kawase-Algorithm) - Algorithm performance
 - [Integration Checklist](Integration-Checklist) - Implementation steps
-- [Troubleshooting](../User-Guide/Troubleshooting) - Performance issues
+- [Troubleshooting](User-Guide-Troubleshooting) - Performance issues

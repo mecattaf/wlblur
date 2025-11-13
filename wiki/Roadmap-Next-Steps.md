@@ -17,7 +17,7 @@
 
 **Status:** In planning
 
-See: [m-4 Plan](../Milestones/m-4-ScrollWM-Integration)
+See: [m-4 Plan](Milestones-m-4-ScrollWM-Integration)
 
 ## Short-Term (Next 3 Months)
 
@@ -159,10 +159,10 @@ Track feature requests: [GitHub Issues](https://github.com/mecattaf/wlblur/issue
 - Provide feedback on API design
 - Help with protocol standardization
 
-See: [Contributing Guide](../Development/Contributing)
+See: [Contributing Guide](Development-Contributing)
 
 ## See Also
 
 - [Project Roadmap](Project-Roadmap) - Long-term vision
 - [Current Status](Current-Status) - Project status
-- [Milestones Overview](../Milestones/Overview) - All milestones
+- [Milestones Overview](Milestones-Overview) - All milestones

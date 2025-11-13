@@ -528,9 +528,9 @@ Total time: ~1.4ms (1080p)
 - `docs/investigation/hyprland-investigation/` - Performance optimizations
 
 ### Related Architecture Docs
-- [01-libwlblur.md](01-libwlblur.md) - Library internals
-- [02-wlblurd.md](02-wlblurd.md) - Daemon architecture
-- [03-integration.md](03-integration.md) - Compositor patterns
+- [01-libwlblur.md](01-libwlblur) - Library internals
+- [02-wlblurd.md](02-wlblurd) - Daemon architecture
+- [03-integration.md](03-integration) - Compositor patterns
 
 ### External Resources
 - Kawase algorithm: [ARM Mali GPU Blog](https://community.arm.com/arm-community-blogs/b/graphics-gaming-and-vr-blog/posts/mali-performance-2-how-to-correctly-handle-framebuffers)
@@ -539,4 +539,4 @@ Total time: ~1.4ms (1080p)
 
 ---
 
-**Next:** [Library Internals (01-libwlblur.md)](01-libwlblur.md)
+**Next:** [Library Internals (01-libwlblur.md)](01-libwlblur)

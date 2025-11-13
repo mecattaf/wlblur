@@ -427,10 +427,10 @@ Public acknowledgment of upstream:
 ## References
 
 - Investigation docs:
-  - [SceneFX Investigation Summary](../Technical-Investigation/SceneFX-Summary) - Complete SceneFX analysis
-  - [Wayfire Algorithm Analysis](../Technical-Investigation/Wayfire-Algorithm-Analysis) - Wayfire algorithms
-  - [Hyprland Blur Algorithm](../Technical-Investigation/Hyprland-Blur-Algorithm) - Hyprland blur + vibrancy
-  - [Comparative Analysis](../Technical-Investigation/Comparative-Analysis) - Three-compositor comparison
+  - [SceneFX Investigation Summary](Technical-Investigation-SceneFX-Summary) - Complete SceneFX analysis
+  - [Wayfire Algorithm Analysis](Technical-Investigation-Wayfire-Algorithm-Analysis) - Wayfire algorithms
+  - [Hyprland Blur Algorithm](Technical-Investigation-Hyprland-Blur-Algorithm) - Hyprland blur + vibrancy
+  - [Comparative Analysis](Technical-Investigation-Comparative-Analysis) - Three-compositor comparison
 
 - Upstream repositories:
   - [SceneFX](https://github.com/wlrfx/scenefx)

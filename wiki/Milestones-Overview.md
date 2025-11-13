@@ -60,6 +60,6 @@
 
 ## See Also
 
-- [Current Status](../Roadmap/Current-Status) - Detailed status of all components
-- [Project Roadmap](../Roadmap/Project-Roadmap) - Long-term vision
-- [ADRs](../Architecture-Decisions/Overview) - Architectural decisions
+- [Current Status](Roadmap-Current-Status) - Detailed status of all components
+- [Project Roadmap](Roadmap-Project-Roadmap) - Long-term vision
+- [ADRs](Architecture-Decisions-Overview) - Architectural decisions

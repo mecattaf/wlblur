@@ -169,7 +169,7 @@ Released: 2025-01-15
 
 ## Changes
 
-See [CHANGELOG.md](CHANGELOG.md) for complete list.
+See [CHANGELOG.md](CHANGELOG) for complete list.
 
 ## Installation
 
@@ -224,4 +224,4 @@ git checkout -b hotfix/1.2.1 v1.2.0
 
 - [Contributing](Contributing) - How to contribute
 - [Testing](Testing) - Test procedures
-- [Project Roadmap](../Roadmap/Project-Roadmap) - Future plans
+- [Project Roadmap](Roadmap-Project-Roadmap) - Future plans

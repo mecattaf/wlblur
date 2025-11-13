@@ -285,16 +285,16 @@ Dual Kawase algorithm (same as Hyprland) with:
 
 **Timeline**: v1.0.0 public release planned for m-5
 
-See [Current Status](../Roadmap/Current-Status.md) for details.
+See [Current Status](Roadmap-Current-Status) for details.
 
 ---
 
 ## Quick Start
 
-Ready to try wlblur? See the [Quick Start Guide](Quick-Start.md).
+Ready to try wlblur? See the [Quick Start Guide](Quick-Start).
 
-Compositor developer? See [Integration Overview](../For-Compositor-Developers/Integration-Overview.md).
+Compositor developer? See [Integration Overview](For-Compositor-Developers-Integration-Overview).
 
 ---
 
-**Next**: [Installation →](Installation.md)
+**Next**: [Installation →](Installation)

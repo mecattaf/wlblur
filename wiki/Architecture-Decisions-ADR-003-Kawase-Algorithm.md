@@ -354,9 +354,9 @@ blur_size = 2^(num_passes + 1) × radius_pixels
 ## References
 
 - Investigation docs:
-  - [SceneFX Investigation Summary](../Technical-Investigation/SceneFX-Summary) - Dual Kawase implementation details
-  - [Wayfire Algorithm Analysis](../Technical-Investigation/Wayfire-Algorithm-Analysis) - Algorithm comparison
-  - [Comparative Analysis](../Technical-Investigation/Comparative-Analysis) - Performance characteristics
+  - [SceneFX Investigation Summary](Technical-Investigation-SceneFX-Summary) - Dual Kawase implementation details
+  - [Wayfire Algorithm Analysis](Technical-Investigation-Wayfire-Algorithm-Analysis) - Algorithm comparison
+  - [Comparative Analysis](Technical-Investigation-Comparative-Analysis) - Performance characteristics
 
 - External resources:
   - [ARM SIGGRAPH 2015 - Bandwidth Efficient Rendering](https://community.arm.com/cfs-file/__key/communityserver-blogs-components-weblogfiles/00-00-00-20-66/siggraph2015_2D00_mmg_2D00_marius_2D00_notes.pdf) - Original Kawase presentation

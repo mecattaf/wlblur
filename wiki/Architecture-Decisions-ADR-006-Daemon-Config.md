@@ -1,8 +1,8 @@
 # ADR-006: Daemon Configuration with Presets
 
-> **Note**: This page contains content from [docs/decisions/006-daemon-configuration-with-presets.md](../../docs/decisions/006-daemon-configuration-with-presets.md).
+> **Note**: This page contains content from [docs/decisions/006-daemon-configuration-with-presets.md](https://github.com/mecattaf/wlblur/blob/main/docs/decisions/006-daemon-configuration-with-presets.md).
 
-For the complete ADR, see: [docs/decisions/006-daemon-configuration-with-presets.md](../../docs/decisions/006-daemon-configuration-with-presets.md)
+For the complete ADR, see: [docs/decisions/006-daemon-configuration-with-presets.md](https://github.com/mecattaf/wlblur/blob/main/docs/decisions/006-daemon-configuration-with-presets.md)
 
 ## Summary
 
@@ -26,4 +26,4 @@ For the complete ADR, see: [docs/decisions/006-daemon-configuration-with-presets
 
 ---
 
-**Full ADR**: [docs/decisions/006-daemon-configuration-with-presets.md](../../docs/decisions/006-daemon-configuration-with-presets.md)
+**Full ADR**: [docs/decisions/006-daemon-configuration-with-presets.md](https://github.com/mecattaf/wlblur/blob/main/docs/decisions/006-daemon-configuration-with-presets.md)
