@@ -871,9 +871,9 @@ close(fd);  // FD no longer needed, EGL has reference
 ## References
 
 ### Related Docs
-- [00-overview.md](00-overview.md) - System architecture
-- [01-libwlblur.md](01-libwlblur.md) - Library internals
-- [03-integration.md](03-integration.md) - Compositor patterns
+- [00-overview.md](00-overview) - System architecture
+- [01-libwlblur.md](01-libwlblur) - Library internals
+- [03-integration.md](03-integration) - Compositor patterns
 
 ### Investigation Sources
 - `docs/post-investigation/blur-daemon-approach.md` - IPC design rationale
@@ -881,4 +881,4 @@ close(fd);  // FD no longer needed, EGL has reference
 
 ---
 
-**Next:** [Compositor Integration (03-integration.md)](03-integration.md)
+**Next:** [Compositor Integration (03-integration.md)](03-integration)

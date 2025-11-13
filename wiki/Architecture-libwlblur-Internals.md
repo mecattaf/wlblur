@@ -842,10 +842,10 @@ drm_dep = dependency('libdrm')
 - SceneFX: `src/render/fx_renderer/fx_texture.c`
 
 ### Related Docs
-- [00-overview.md](00-overview.md) - System architecture
-- [02-wlblurd.md](02-wlblurd.md) - Daemon architecture
-- [03-integration.md](03-integration.md) - Compositor patterns
+- [00-overview.md](00-overview) - System architecture
+- [02-wlblurd.md](02-wlblurd) - Daemon architecture
+- [03-integration.md](03-integration) - Compositor patterns
 
 ---
 
-**Next:** [Daemon Architecture (02-wlblurd.md)](02-wlblurd.md)
+**Next:** [Daemon Architecture (02-wlblurd.md)](02-wlblurd)

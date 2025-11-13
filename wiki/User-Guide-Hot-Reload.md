@@ -99,4 +99,4 @@ killall -USR1 wlblurd
 
 - [Configuration Guide](Configuration) - Parameter details
 - [Presets](Presets) - Preset system
-- [ADR-006: Daemon Configuration](../Architecture-Decisions/ADR-006-Daemon-Config) - Design rationale
+- [ADR-006: Daemon Configuration](Architecture-Decisions-ADR-006-Daemon-Config) - Design rationale

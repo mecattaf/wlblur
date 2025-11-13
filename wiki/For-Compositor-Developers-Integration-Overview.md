@@ -1053,9 +1053,9 @@ void set_window_material(struct compositor_window* window,
 ## References
 
 ### Related Docs
-- [00-overview.md](00-overview.md) - System architecture
-- [01-libwlblur.md](01-libwlblur.md) - Library internals
-- [02-wlblurd.md](02-wlblurd.md) - Daemon architecture
+- [00-overview.md](00-overview) - System architecture
+- [01-libwlblur.md](01-libwlblur) - Library internals
+- [02-wlblurd.md](02-wlblurd) - Daemon architecture
 
 ### Investigation Sources
 - `docs/post-investigation/blur-daemon-approach.md` - Integration rationale

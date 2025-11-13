@@ -86,10 +86,10 @@ daemon_socket = "/run/user/1000/wlblur.sock"
 - Verify path: `ls ~/.config/wlblur/config.toml`
 - Test config: `wlblurd --config ~/.config/wlblur/config.toml`
 
-See [Troubleshooting Guide](../User-Guide/Troubleshooting) for more help.
+See [Troubleshooting Guide](User-Guide-Troubleshooting) for more help.
 
 ## Next Steps
 
-- [Configuration Guide](../User-Guide/Configuration) - Customize blur settings
-- [Presets Guide](../User-Guide/Presets) - Create custom presets
-- [Hot Reload](../User-Guide/Hot-Reload) - Live config updates
+- [Configuration Guide](User-Guide-Configuration) - Customize blur settings
+- [Presets Guide](User-Guide-Presets) - Create custom presets
+- [Hot Reload](User-Guide-Hot-Reload) - Live config updates

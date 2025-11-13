@@ -315,8 +315,8 @@ wayfire-investigation/
 ## Related Investigations
 
 See also:
-- `../scenefx-investigation/` - Analysis of SceneFX blur implementation
-- `../blur-compositor/blur-compositor.md` - High-level project goals and architecture
+- `https://github.com/mecattaf/wlblur/tree/main/docs/investigation/scenefx-investigation/` - Analysis of SceneFX blur implementation
+- `https://github.com/mecattaf/wlblur/blob/main/docs/pre-investigation/blur-compositor/blur-compositor.md` - High-level project goals and architecture
 
 ---
 

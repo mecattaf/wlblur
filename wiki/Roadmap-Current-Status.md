@@ -123,7 +123,7 @@ Without m-3, compositors would need to provide full parameter sets, violating ou
 
 ### Milestone m-3 Highlights
 
-See [milestone3-report.md](../../docs/post-milestone3-discussion/milestone3-report.md) for complete details.
+See [milestone3-report.md](https://github.com/mecattaf/wlblur/blob/main/docs/post-milestone3-discussion/milestone3-report.md) for complete details.
 
 **Key Stats**:
 - ~975 lines of implementation code
@@ -144,13 +144,13 @@ See [milestone3-report.md](../../docs/post-milestone3-discussion/milestone3-repo
 
 **For Users**: Try the configuration system once compositor integration is complete (m-4)
 
-**For Compositor Developers**: Review [Integration Overview](../For-Compositor-Developers/Integration-Overview.md) to prepare for integration
+**For Compositor Developers**: Review [Integration Overview](For-Compositor-Developers-Integration-Overview) to prepare for integration
 
-**For Contributors**: See [Contributing Guide](../Development/Contributing.md) for how to help
+**For Contributors**: See [Contributing Guide](Development-Contributing) for how to help
 
 ---
 
 **See Also**:
-- [Project Roadmap](Project-Roadmap.md) — Full timeline
-- [Next Steps](Next-Steps.md) — Immediate priorities
-- [Future Vision](Future-Vision.md) — Long-term goals
+- [Project Roadmap](Project-Roadmap) — Full timeline
+- [Next Steps](Next-Steps) — Immediate priorities
+- [Future Vision](Future-Vision) — Long-term goals

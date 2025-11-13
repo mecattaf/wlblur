@@ -373,8 +373,8 @@ eglDestroyImageKHR(egl_display, image);
 ## References
 
 - Investigation docs:
-  - [SceneFX Investigation Summary](../Technical-Investigation/SceneFX-Summary) - DMA-BUF import patterns
-  - [Comparative Analysis](../Technical-Investigation/Comparative-Analysis) - Zero-copy architecture analysis
+  - [SceneFX Investigation Summary](Technical-Investigation-SceneFX-Summary) - DMA-BUF import patterns
+  - [Comparative Analysis](Technical-Investigation-Comparative-Analysis) - Zero-copy architecture analysis
 
 - External resources:
   - [Linux DMA-BUF documentation](https://docs.kernel.org/driver-api/dma-buf.html)

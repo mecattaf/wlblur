@@ -610,8 +610,8 @@ strace -e socket,bind,listen,accept,sendmsg,recvmsg wlblur-daemon
 ## References
 
 - Investigation docs:
-  - [SceneFX Daemon Translation](../Technical-Investigation/SceneFX-Daemon-Translation) - IPC protocol design
-  - [Comparative Analysis](../Technical-Investigation/Comparative-Analysis) - IPC architecture
+  - [SceneFX Daemon Translation](Technical-Investigation-SceneFX-Daemon-Translation) - IPC protocol design
+  - [Comparative Analysis](Technical-Investigation-Comparative-Analysis) - IPC architecture
 
 - External resources:
   - [Unix(7) man page](https://man7.org/linux/man-pages/man7/unix.7.html) - Unix domain sockets

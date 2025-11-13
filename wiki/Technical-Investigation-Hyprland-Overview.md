@@ -48,7 +48,7 @@ This investigation analyzes Hyprland's blur system to understand:
 
 ## Documents
 
-### 1. [Architecture](./architecture.md)
+### 1. [Architecture](./architecture)
 **Renderer Architecture and Blur Path**
 
 Covers:
@@ -64,7 +64,7 @@ Covers:
 - Framebuffer usage pipeline
 - Integration points for blur
 
-### 2. [Blur Algorithm](./blur-algorithm.md)
+### 2. [Blur Algorithm](./blur-algorithm)
 **Blur Algorithm Deep Dive**
 
 Covers:
@@ -81,7 +81,7 @@ Covers:
 - Texture sample count comparison
 - Computational cost analysis
 
-### 3. [Damage Tracking](./damage-tracking.md)
+### 3. [Damage Tracking](./damage-tracking)
 **Damage Tracking and Blur Optimizations**
 
 Covers:
@@ -98,7 +98,7 @@ Covers:
 - `preBlurForCurrentMonitor()` cache computation
 - Complete damage flow diagram
 
-### 4. [Performance Evaluation](./performance-evaluation.md)
+### 4. [Performance Evaluation](./performance-evaluation)
 **Performance Evaluation**
 
 Covers:
@@ -117,7 +117,7 @@ Covers:
 - xray mode benefit (10× speedup)
 - Hardware-specific recommendations
 
-### 5. [Daemon Translation Feasibility](./daemon-translation-feasibility.md)
+### 5. [Daemon Translation Feasibility](./daemon-translation-feasibility)
 **Daemon Translation Feasibility Report**
 
 Covers:
@@ -242,7 +242,7 @@ decoration {
 }
 ```
 
-**Hardware-specific recommendations provided in [Performance Evaluation](./performance-evaluation.md).**
+**Hardware-specific recommendations provided in [Performance Evaluation](./performance-evaluation).**
 
 ---
 
