@@ -64,7 +64,11 @@ struct wlblur_request {
     uint32_t stride;
     uint32_t offset;
 
-    // Blur parameters
+    // Preset support (m-3)
+    char preset_name[32];                // Preset name (e.g., "window", "panel")
+    uint32_t use_preset;                 // 1 = use preset, 0 = use params
+
+    // Blur parameters (optional override)
     struct wlblur_blur_params params;
 } __attribute__((packed));
 
@@ -239,5 +243,19 @@ void handle_client_request(int client_fd);
  * @return 0 on success, -1 on error
  */
 int run_event_loop(int server_fd);
+
+/*
+ * Configuration access
+ */
+
+/* Forward declaration */
+struct daemon_config;
+
+/**
+ * Get global daemon configuration
+ *
+ * @return Pointer to global config or NULL
+ */
+struct daemon_config* get_global_config(void);
 
 #endif /* WLBLURD_PROTOCOL_H */

@@ -6,10 +6,23 @@ wlblurd_sources = files(
   'src/blur_node.c',
   'src/buffer_registry.c',
   'src/config.c',
+  'src/presets.c',
+  'src/reload.c',
 )
+
+# TOML parsing library
+toml_dep = dependency('toml', required: false)
+if not toml_dep.found()
+  toml_dep = dependency('tomlc99', required: false)
+endif
+if not toml_dep.found()
+  # Fallback: use pkg-config to find toml
+  toml_dep = dependency('toml', method: 'pkg-config', required: true)
+endif
 
 wlblurd_deps = [
   libwlblur_dep,
+  toml_dep,
 ]
 
 wlblurd_includes = include_directories('include')
