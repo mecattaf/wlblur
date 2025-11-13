@@ -10,22 +10,22 @@ wlblurd_sources = files(
   'src/reload.c',
 )
 
-# TOML parsing library
-toml_dep = dependency('toml', required: false)
-if not toml_dep.found()
-  toml_dep = dependency('tomlc99', required: false)
-endif
-if not toml_dep.found()
-  # Fallback: use pkg-config to find toml
-  toml_dep = dependency('toml', method: 'pkg-config', required: true)
-endif
+# Bundle tomlc99 source instead of external dependency
+# This eliminates dependency issues on distros where tomlc99 is not packaged
+tomlc99_sources = files(
+  'vendor/tomlc99/toml.c'
+)
+
+wlblurd_sources += tomlc99_sources
 
 wlblurd_deps = [
   libwlblur_dep,
-  toml_dep,
 ]
 
-wlblurd_includes = include_directories('include')
+wlblurd_includes = [
+  include_directories('include'),
+  include_directories('vendor/tomlc99'),
+]
 
 wlblurd = executable(
   'wlblurd',

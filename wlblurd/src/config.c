@@ -7,7 +7,7 @@
  */
 
 #include "config.h"
-#include <toml.h>
+#include "toml.h"  // Bundled tomlc99
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
