@@ -7,6 +7,7 @@
  */
 
 #include "protocol.h"
+#include "config.h"
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <sys/epoll.h>
@@ -19,6 +20,7 @@
 #include <unistd.h>
 
 static volatile sig_atomic_t running = 1;
+static struct daemon_config *global_config = NULL;
 
 /**
  * Signal handler for graceful shutdown
@@ -87,6 +89,18 @@ int run_event_loop(int server_fd) {
     printf("[wlblurd] Event loop started\n");
 
     while (running) {
+        // Check for config reload
+        if (reload_pending()) {
+            struct daemon_config *new_config = handle_config_reload(NULL);
+            if (new_config) {
+                struct daemon_config *old_config = global_config;
+                global_config = new_config;
+                if (old_config) {
+                    config_free(old_config);
+                }
+            }
+        }
+
         int nfds = epoll_wait(epoll_fd, events, 32, 1000);
 
         if (nfds < 0) {
@@ -125,41 +139,61 @@ int run_event_loop(int server_fd) {
 }
 
 /**
+ * Parse command-line arguments
+ */
+static const char* parse_config_path(int argc, char **argv) {
+    for (int i = 1; i < argc; i++) {
+        if (strcmp(argv[i], "--config") == 0 && i + 1 < argc) {
+            return argv[i + 1];
+        }
+    }
+    return NULL;  // Use default
+}
+
+/**
+ * Get global config (for access from other modules)
+ */
+struct daemon_config* get_global_config(void) {
+    return global_config;
+}
+
+/**
  * Main entry point
  */
 int main(int argc, char **argv) {
-    (void)argc;
-    (void)argv;
-
     printf("[wlblurd] wlblur daemon starting...\n");
+
+    // Parse command-line arguments
+    const char *config_path = parse_config_path(argc, argv);
+
+    // Load configuration
+    global_config = config_load(config_path);
+    if (!global_config) {
+        fprintf(stderr, "[wlblurd] Failed to load config, using defaults\n");
+        global_config = config_load(NULL);  // Try default path
+        if (!global_config) {
+            fprintf(stderr, "[wlblurd] Critical: Cannot create default config\n");
+            return 1;
+        }
+    }
 
     // Install signal handlers
     signal(SIGTERM, signal_handler);
     signal(SIGINT, signal_handler);
     signal(SIGPIPE, SIG_IGN);  // Ignore broken pipe
 
-    // Get socket path
-    const char *runtime_dir = getenv("XDG_RUNTIME_DIR");
-    if (!runtime_dir) {
-        // Fallback to /tmp if XDG_RUNTIME_DIR is not set
-        runtime_dir = "/tmp";
-        fprintf(stderr, "[wlblurd] Warning: XDG_RUNTIME_DIR not set, using %s\n",
-                runtime_dir);
-    }
+    // Initialize hot reload
+    reload_init();
 
-    char socket_path[256];
-    int ret = snprintf(socket_path, sizeof(socket_path),
-                      "%s/wlblur.sock", runtime_dir);
-    if (ret < 0 || ret >= (int)sizeof(socket_path)) {
-        fprintf(stderr, "[wlblurd] Socket path too long\n");
-        return 1;
-    }
+    // Use socket path from config
+    const char *socket_path = global_config->socket_path;
 
     // Create socket
     int server_fd = socket(AF_UNIX, SOCK_STREAM, 0);
     if (server_fd < 0) {
         fprintf(stderr, "[wlblurd] Failed to create socket: %s\n",
                 strerror(errno));
+        config_free(global_config);
         return 1;
     }
 
@@ -175,6 +209,7 @@ int main(int argc, char **argv) {
         fprintf(stderr, "[wlblurd] Failed to bind socket: %s\n",
                 strerror(errno));
         close(server_fd);
+        config_free(global_config);
         return 1;
     }
 
@@ -184,6 +219,7 @@ int main(int argc, char **argv) {
                 strerror(errno));
         close(server_fd);
         unlink(socket_path);
+        config_free(global_config);
         return 1;
     }
 
@@ -193,6 +229,7 @@ int main(int argc, char **argv) {
                 strerror(errno));
         close(server_fd);
         unlink(socket_path);
+        config_free(global_config);
         return 1;
     }
 
@@ -204,6 +241,7 @@ int main(int argc, char **argv) {
     // Cleanup
     close(server_fd);
     unlink(socket_path);
+    config_free(global_config);
 
     printf("[wlblurd] Shutdown complete\n");
     return 0;

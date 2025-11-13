@@ -7,6 +7,7 @@
  */
 
 #include "protocol.h"
+#include "config.h"
 #include <wlblur/wlblur.h>
 #include <wlblur/dmabuf.h>
 #include <stdio.h>
@@ -119,14 +120,30 @@ static struct wlblur_response handle_render_blur(
         },
     };
 
-    // Copy params to properly aligned local variable (req is packed)
-    struct wlblur_blur_params params = req->params;
+    // Resolve blur parameters using preset system
+    const struct wlblur_blur_params *params;
+    struct daemon_config *config = get_global_config();
+
+    if (req->use_preset && req->preset_name[0] != '\0') {
+        // Use preset from config
+        params = resolve_preset(config, req->preset_name, NULL);
+        printf("[wlblurd] Using preset '%s' for node %u\n",
+               req->preset_name, req->node_id);
+    } else {
+        // Use compositor-provided parameters
+        // Copy params to properly aligned local variable (req is packed)
+        static struct wlblur_blur_params direct_params;
+        direct_params = req->params;
+        params = &direct_params;
+        printf("[wlblurd] Using direct parameters for node %u\n",
+               req->node_id);
+    }
 
     // Apply blur
     struct wlblur_dmabuf_attribs output_attribs;
     if (!wlblur_apply_blur(g_blur_ctx,
                           &input_attribs,
-                          &params,
+                          params,
                           &output_attribs)) {
         fprintf(stderr, "[wlblurd] Blur rendering failed: %s\n",
                 wlblur_error_string(wlblur_get_error()));
