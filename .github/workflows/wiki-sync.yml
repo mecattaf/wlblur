@@ -11,12 +11,16 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # REQUIRED on some repos
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Sync wiki
         uses: Andrew-Chen-Wang/github-wiki-action@v3
         env:
-          GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
