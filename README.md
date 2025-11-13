@@ -100,22 +100,33 @@
 
 ## Quick Start
 
-> **⚠️ Project Status:** Core implementation complete (milestones m-0 through m-2). Awaiting build verification and compositor integration (m-3).
+> **✅ Project Status:** Core implementation complete (milestones m-0 through m-3). Configuration system ready. Awaiting compositor integration (m-4).
 
-Once integrated, usage will be:
+Once compositor integration is complete (m-4), usage will be:
 
 ```bash
 # Start the blur daemon
-wlblur-daemon --socket /run/user/1000/wlblur.sock
+wlblurd  # Uses ~/.config/wlblur/config.toml
 
-# Configure your compositor (example for scroll)
-# Add to scroll config:
-blur_daemon_socket /run/user/1000/wlblur.sock
-blur_enabled yes
-blur_radius 40
+# Configure blur (optional - works with defaults)
+cat > ~/.config/wlblur/config.toml <<EOF
+[defaults]
+algorithm = "kawase"
+radius = 5.0
+passes = 3
+
+[presets.window]
+radius = 8.0
+
+[presets.panel]
+radius = 4.0
+EOF
+
+# Hot reload configuration
+killall -USR1 wlblurd  # Changes apply instantly!
 ```
 
-See [INSTALL.md](docs/INSTALL.md) *(coming soon)* for compositor-specific integration guides.
+See [wiki](wiki) for comprehensive documentation.
 
 ---
 
@@ -202,34 +213,34 @@ The `ext_background_effect_v1` Wayland protocol **doesn't include blur parameter
 
 ## Project Status
 
-**Current Phase:** Milestone m-3 (Configuration System) 📋
+**Current Phase:** Milestone m-3 Complete ✅ — Ready for Compositor Integration
 
 - ✅ **Milestone m-0** (Documentation & Setup): Complete
-  - 5 Architecture Decision Records (ADRs)
+  - 6 Architecture Decision Records (ADRs)
   - Complete architecture documentation
   - Repository structure and build system (Meson)
   - IPC protocol specification
 
-- ✅ **Milestone m-1** (Shader Extraction): Complete
+- ✅ **Milestone m-1** (libwlblur Core): Complete
   - Shader extraction from SceneFX, Hyprland, Wayfire
   - Unified parameter schema with compositor presets
   - 5 GLSL shaders (~650 lines)
 
-- ✅ **Milestone m-2** (libwlblur + wlblurd): Complete
+- ✅ **Milestone m-2** (wlblurd IPC Daemon): Complete
   - Core library: EGL context, DMA-BUF infrastructure, Dual Kawase (~1,800 lines)
   - IPC daemon: Unix socket server, protocol handler, blur node registry (~800 lines)
   - See [milestone2-report.md](docs/post-milestone2-discussion/milestone2-report.md) for details
 
-- 📋 **Milestone m-3** (Configuration System): Next
-  - Daemon-side configuration with TOML parsing
+- ✅ **Milestone m-3** (Configuration System): Complete
+  - Daemon-side configuration with TOML parsing (~900 lines)
   - Preset system (window, panel, hud, tooltip)
   - Hot reload via SIGUSR1
-  - Algorithm enum (prepare for m-9: gaussian, box, bokeh)
-  - **ADR-006** architecture decision complete ✅
+  - Algorithm enum (prepared for m-9: gaussian, box, bokeh)
+  - See [milestone3-report.md](docs/post-milestone3-discussion/milestone3-report.md) for details
 
-- ⏳ **Next:** ScrollWM compositor integration (Milestone m-4)
+- 🔄 **Next:** ScrollWM compositor integration (Milestone m-4)
 
-See [ROADMAP.md](ROADMAP.md) for complete project timeline and [backlog/milestones/](backlog/milestones/) for detailed milestone specs.
+See [ROADMAP.md](ROADMAP.md) for complete project timeline and [wiki](wiki) for comprehensive documentation.
 
 ---
 
@@ -293,17 +304,32 @@ See [docs/post-investigation/comprehensive-synthesis1.md](docs/post-investigatio
 
 ## Documentation
 
-- **[Investigation Summary](docs/post-investigation/comprehensive-synthesis1.md)** — Analysis of Hyprland, Wayfire, and SceneFX blur implementations
-- **[Daemon Approach Rationale](docs/post-investigation/blur-daemon-approach.md)** — Why external daemon beats in-compositor integration
-- **[Hyprland Parity Plan](docs/post-investigation/hyprland-parity-explanation.md)** — Roadmap to match Hyprland blur quality
-- **[macOS Parity Explained](docs/post-investigation/macos-parity-explained.md)** — How wlblur will match Apple's blur quality
-- **[scroll Maintainer Discussion](docs/pre-investigation/scrollwm-maintainer-discussion.md)** — Why some compositors reject built-in blur
+**📚 [Full Documentation Wiki →](wiki)**
 
-### Investigation Docs
+### Quick Links
 
-- [Hyprland Investigation](docs/investigation/hyprland-investigation/)
-- [SceneFX Investigation](docs/investigation/scenefx-investigation/)
-- [Wayfire Investigation](docs/investigation/wayfire-investigation/)
+**For Users:**
+- 📘 [What is wlblur?](wiki/Getting-Started/What-is-wlblur.md) — 2-minute introduction
+- 🚀 [Quick Start Guide](wiki/Getting-Started/Quick-Start.md)  — Get started in 5 minutes
+- 🔧 [Configuration Guide](wiki/User-Guide/Configuration.md) — Complete configuration reference
+- 🔥 [Hot Reload Guide](wiki/User-Guide/Hot-Reload.md) — Instant configuration changes
+
+**For Compositor Developers:**
+- 👨‍💻 [Integration Overview](wiki/For-Compositor-Developers/Integration-Overview.md) — How to integrate wlblur
+- ✅ [Integration Checklist](wiki/For-Compositor-Developers/Integration-Checklist.md) — Step-by-step guide
+- 📚 [API Reference](wiki/For-Compositor-Developers/API-Reference.md) — IPC protocol documentation
+- 💡 [Example Integration](wiki/For-Compositor-Developers/Example-Integration.md) — Code walkthrough
+
+**Architecture & Design:**
+- 🏗️ [System Overview](wiki/Architecture/System-Overview.md) — High-level architecture
+- 📖 [Architecture Decisions](wiki/Architecture-Decisions) — ADRs explaining key design choices
+- 🗺️ [Project Roadmap](wiki/Roadmap/Project-Roadmap.md) — Full roadmap m-0 through m-9
+- 📊 [Current Status](wiki/Roadmap/Current-Status.md) — Where we are now
+
+**Deep Dives:**
+- [Hyprland Investigation](docs/investigation/hyprland-investigation/) — Performance analysis
+- [SceneFX Investigation](docs/investigation/scenefx-investigation/) — Scene graph integration
+- [Wayfire Investigation](docs/investigation/wayfire-investigation/) — Algorithm variety
 
 ---
 
