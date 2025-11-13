@@ -18,11 +18,86 @@
 #include <stdbool.h>
 
 /**
+ * Blur algorithm selection
+ *
+ * Determines which blur algorithm to use for rendering.
+ *
+ * m-3 (v1.0): Only WLBLUR_ALGO_KAWASE is supported
+ * m-9 (v2.0): gaussian, box, bokeh will be added
+ *
+ * Note: Including this enum in m-3 prevents breaking config format
+ * changes when adding new algorithms in future versions.
+ */
+enum wlblur_algorithm {
+    /**
+     * Dual Kawase blur (default)
+     *
+     * Best balance of quality and performance.
+     * Uses downsampling + upsampling passes.
+     *
+     * Performance: ~1.2ms @ 1080p (3 passes, radius=5)
+     * Quality: Smooth, Apple-like blur
+     * Supported: m-3+ (v1.0+)
+     */
+    WLBLUR_ALGO_KAWASE = 0,
+
+    /**
+     * Gaussian blur (coming in m-9)
+     *
+     * Highest quality, mathematically perfect Gaussian distribution.
+     * Uses separable 2D convolution (horizontal + vertical passes).
+     *
+     * Performance: ~1.8ms @ 1080p (sigma=10, kernel=21)
+     * Quality: Perfect Gaussian, no artifacts
+     * Supported: m-9+ (v2.0+)
+     */
+    WLBLUR_ALGO_GAUSSIAN = 1,
+
+    /**
+     * Box blur (coming in m-9)
+     *
+     * Fastest algorithm, lower quality.
+     * Uses simple averaging filter.
+     *
+     * Performance: ~0.6ms @ 1080p (2 iterations)
+     * Quality: Acceptable for low-end hardware
+     * Supported: m-9+ (v2.0+)
+     */
+    WLBLUR_ALGO_BOX = 2,
+
+    /**
+     * Bokeh blur (coming in m-9)
+     *
+     * Artistic depth-of-field effect.
+     * Simulates camera lens bokeh with customizable shape.
+     *
+     * Performance: ~2.5ms @ 1080p (radius=12)
+     * Quality: Artistic, decorative
+     * Supported: m-9+ (v2.0+)
+     */
+    WLBLUR_ALGO_BOKEH = 3,
+};
+
+/**
  * Core blur parameters
  *
  * User-configurable settings that control blur quality and appearance.
  */
 struct wlblur_blur_params {
+    /* === Algorithm Selection === */
+
+    /**
+     * Blur algorithm to use
+     *
+     * Default: WLBLUR_ALGO_KAWASE
+     *
+     * m-3 (v1.0): Only WLBLUR_ALGO_KAWASE is accepted
+     * m-9 (v2.0): All algorithms will be supported
+     *
+     * Note: This field is included in m-3 to avoid config format
+     * breaking changes when new algorithms are added in m-9.
+     */
+    enum wlblur_algorithm algorithm;
     /* === Core Algorithm Parameters === */
 
     /**

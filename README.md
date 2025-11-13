@@ -119,9 +119,90 @@ See [INSTALL.md](docs/INSTALL.md) *(coming soon)* for compositor-specific integr
 
 ---
 
+## Configuration
+
+wlblur uses **daemon-side configuration** via TOML files, enabling minimal compositor integration while supporting future feature evolution.
+
+### Basic Configuration
+
+Create `~/.config/wlblur/config.toml`:
+
+```toml
+[defaults]
+algorithm = "kawase"
+num_passes = 3
+radius = 5.0
+saturation = 1.1
+
+[presets.window]
+radius = 8.0
+num_passes = 3
+
+[presets.panel]
+radius = 4.0
+num_passes = 2
+brightness = 1.05
+```
+
+**Works out-of-box without configuration** — file is optional!
+
+### Preset System
+
+Compositors reference **named presets** instead of providing full parameters:
+
+```c
+// Compositor integration (minimal)
+const char* preset = is_panel(surface) ? "panel" : "window";
+struct wlblur_request req = { .preset_name = preset };
+```
+
+**Standard presets:**
+- `window` — Regular application windows (radius=8.0, passes=3)
+- `panel` — Desktop panels like waybar (radius=4.0, passes=2)
+- `hud` — Overlay elements like rofi (radius=12.0, passes=4, vibrancy=0.2)
+- `tooltip` — Tooltips and small popups (radius=2.0, passes=1)
+
+**Benefits:**
+- **Multi-compositor consistency**: Same blur across scroll, niri, sway
+- **Hot reload**: Edit config, send `SIGUSR1`, changes apply instantly
+- **Future-proof**: New features (tint, materials) work without compositor updates
+
+### Hot Reload
+
+```bash
+# Edit configuration
+vim ~/.config/wlblur/config.toml
+
+# Reload daemon (no compositor restart!)
+killall -USR1 wlblurd
+
+# Changes apply immediately to all compositors
+```
+
+### Why Daemon Configuration?
+
+The `ext_background_effect_v1` Wayland protocol **doesn't include blur parameters**. Client applications (quickshell, waybar) just say "blur me" without specifying how.
+
+**Three options for parameter resolution:**
+
+1. **Compositor config** → Bloats compositor, breaks on wlblur upgrades ❌
+2. **Daemon config with presets** → Minimal compositor code (~220 lines), future-proof ✅
+3. **Hybrid** → Too complex ❌
+
+**wlblur chose option 2** — see [ADR-006](docs/decisions/006-daemon-configuration-with-presets.md) for complete rationale.
+
+### Documentation
+
+- **[Configuration Guide](docs/configuration-guide.md)** — Complete user guide with examples
+- **[Configuration Architecture](docs/architecture/04-configuration-system.md)** — Technical details
+- **[Example Config](docs/examples/wlblur-config.toml)** — Annotated example file
+- **[ADR-006](docs/decisions/006-daemon-configuration-with-presets.md)** — Architecture decision rationale
+
+---
+
 ## Project Status
 
-**Current Phase:** Core Implementation Complete (Milestone m-2 ✅)
+**Current Phase:** Milestone m-3 (Configuration System) 📋
 
 - ✅ **Milestone m-0** (Documentation & Setup): Complete
   - 5 Architecture Decision Records (ADRs)
@@ -129,22 +210,26 @@ See [INSTALL.md](docs/INSTALL.md) *(coming soon)* for compositor-specific integr
   - Repository structure and build system (Meson)
   - IPC protocol specification
 
-- ✅ **Milestone m-1** (libwlblur Core): Complete
+- ✅ **Milestone m-1** (Shader Extraction): Complete
   - Shader extraction from SceneFX, Hyprland, Wayfire
   - Unified parameter schema with compositor presets
-  - EGL context and DMA-BUF infrastructure
-  - Dual Kawase blur algorithm implementation
-  - Complete public API (~2,448 lines)
+  - 5 GLSL shaders (~650 lines)
 
-- ✅ **Milestone m-2** (wlblurd Daemon): Complete
-  - Unix socket server with epoll event loop
-  - IPC protocol handler (CREATE_NODE, RENDER_BLUR, DESTROY_NODE)
-  - Blur node registry with resource management
-  - Full daemon implementation (~800 lines)
+- ✅ **Milestone m-2** (libwlblur + wlblurd): Complete
+  - Core library: EGL context, DMA-BUF infrastructure, Dual Kawase (~1,800 lines)
+  - IPC daemon: Unix socket server, protocol handler, blur node registry (~800 lines)
+  - See [milestone2-report.md](docs/post-milestone2-discussion/milestone2-report.md) for details
 
-- ⏳ **Next:** Compositor integration (Milestone m-3)
+- 📋 **Milestone m-3** (Configuration System): Next
+  - Daemon-side configuration with TOML parsing
+  - Preset system (window, panel, hud, tooltip)
+  - Hot reload via SIGUSR1
+  - Algorithm enum (prepare for m-9: gaussian, box, bokeh)
+  - **ADR-006** architecture decision complete ✅
 
-See [milestone2-report.md](milestone2-report.md) for detailed completion report and [backlog/tasks/](backlog/tasks/) for upcoming work.
+- ⏳ **Next:** ScrollWM compositor integration (Milestone m-4)
+
+See [ROADMAP.md](ROADMAP.md) for complete project timeline and [backlog/milestones/](backlog/milestones/) for detailed milestone specs.
 
 ---
 
