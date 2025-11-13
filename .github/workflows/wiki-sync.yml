@@ -19,4 +19,4 @@ jobs:
       - name: Sync wiki
         uses: Andrew-Chen-Wang/github-wiki-action@v3
         env:
-          GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+          GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
