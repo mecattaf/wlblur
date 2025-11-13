@@ -6,6 +6,8 @@
  * reload.c - Hot reload functionality via SIGUSR1
  */
 
+#define _POSIX_C_SOURCE 200809L
+
 #include "config.h"
 #include <signal.h>
 #include <stdio.h>
