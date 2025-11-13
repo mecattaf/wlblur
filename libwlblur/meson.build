@@ -15,7 +15,7 @@ libwlblur_deps = [
   libdrm_dep,
 ]
 
-libwlblur_includes = include_directories('include')
+libwlblur_includes = include_directories('include', '.')
 
 libwlblur = library(
   'wlblur',
