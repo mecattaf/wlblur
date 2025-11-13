@@ -27,3 +27,4 @@ jobs:
           GH_NAME: github-actions
           GH_MAIL: github-actions@github.com
           WIKI_DIR: wiki
+          WIKI_BRANCH: main
