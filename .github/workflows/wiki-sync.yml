@@ -8,6 +8,8 @@ on:
       - 'wiki/**'
       - '.github/workflows/wiki-sync.yml'
 
+  workflow_dispatch:
+
 jobs:
   sync:
     runs-on: ubuntu-latest
